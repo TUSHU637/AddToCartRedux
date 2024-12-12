@@ -44,9 +44,12 @@ const cartSlice = createSlice({
                 return elem;
             }
         })
+    },
+    deleteAllItemFromCart:(state)=>{
+         state.cart=[]
     }
   },
 });
 
-export const { AddToCart,DeleteFromCart,increaseQunatity, decreaseQunatity } = cartSlice.actions; // Correct way to access actions
+export const { AddToCart,DeleteFromCart,increaseQunatity, decreaseQunatity, deleteAllItemFromCart } = cartSlice.actions; // Correct way to access actions
 export default cartSlice.reducer; // Correct way to export the reducer

@@ -3,10 +3,13 @@ import products from '../data.js'
 import { Link } from 'react-router-dom'
 import Summary from '../component/Summary.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { decreaseQunatity, DeleteFromCart, increaseQunatity } from '../redux/CartSlice.js'
+import { decreaseQunatity, deleteAllItemFromCart, DeleteFromCart, increaseQunatity } from '../redux/CartSlice.js'
 const Product = () => {
-    
+   
     const dispatch=useDispatch();
+    const handleCheckOut=()=>{
+        dispatch(deleteAllItemFromCart());
+    }
     const handleDelete=(id)=>{
         dispatch(DeleteFromCart(id));
     }
@@ -25,9 +28,9 @@ const Product = () => {
 const products=useSelector(state=>state.cart.cart);
   return (
     <div className='bg-dark'>
-        {products.length==0 && <h1><center>Cart is empty!!</center></h1> }
+        {products.length==0 && <h1 className='text-light fs-2'><center>Cart is empty!!</center></h1> }
         {products.length>0 && <h1>Cart({products.length})</h1> }
-        <button>CheckOut</button>
+        <button className='bg-primary' onClick={handleCheckOut}>CheckOut</button>
     <div class="container-fluid  mt-3 w-100 d-flex justify-content-around ">
     
   <div class="row d-flex justify-content-between">
@@ -45,7 +48,7 @@ const products=useSelector(state=>state.cart.cart);
           </div>
           <div className="col-md-5 mb-4">
                <div>
-                <button onClick={()=>DecreaseQuantity(product)}>-</button>&nbsp;<span><bold>{product.quantity}</bold></span>&nbsp;<button onClick={()=>IncreaseQunatity(product)}>+</button>
+                <button onClick={()=>DecreaseQuantity(product)}>-</button>&nbsp;<span className='text-light fs-3'><bold>{product.quantity}</bold></span>&nbsp;<button onClick={()=>IncreaseQunatity(product)}>+</button>
                </div>
                <div>
                 <h1>{product.price*product.quantity}</h1>
